@@ -19,7 +19,7 @@
             <li><a href="#" class="hover:underline">Stay</a></li>
             <li><a href="#" class="hover:underline">Promo</a></li>
             <li><a href="#" class="underline font-semibold">Contact-us</a></li>
-        </ul>
+        </ul>h
     </nav>
 
     <!-- TITLE -->
