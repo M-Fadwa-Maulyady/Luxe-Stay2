@@ -1,0 +1,147 @@
+/* ============ IMPORT FONT (Google Font - EB Garamond) ============ */
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&display=swap');
+
+/* ============ GENERAL ============ */
+body {
+    margin: 0;
+    font-family: 'EB Garamond', serif;
+    display: flex;
+    background: #f4f6f9;
+}
+
+/* ============ SIDEBAR ============ */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: linear-gradient(#0e1a33, #112143);
+    color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+/* MENU */
+.menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: #dce6f7;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 6px;
+    margin: 5px 12px;
+    transition: 0.2s;
+    font-family: 'EB Garamond', serif;
+}
+
+.menu-item i {
+    margin-right: 12px;
+    font-size: 17px;
+}
+
+.menu-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.menu-item.active {
+    background: #1c62ff;
+    color: #fff;
+}
+
+/* LOGOUT BUTTON */
+.logout-btn {
+    margin: 10px 0px;
+    width: 100%;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    text-align: left;
+    font-size: 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: 0.2s;
+}
+
+.logout-btn:hover {
+    background: #c0392b;
+}
+
+/* LOGO BOTTOM */
+.logo-bottom {
+    margin-top: auto;
+    text-align: center;
+    padding-bottom: 40px;
+}
+
+.logo-bottom h3 {
+    margin: 0;
+    font-size: 20px;
+    letter-spacing: 3px;
+    line-height: 24px;
+    font-weight: 700;
+}
+
+/* ============ CONTENT ============ */
+.content {
+    margin-left: 250px;
+    padding: 30px;
+    width: calc(100% - 250px);
+}
+
+/* Header Dashboard */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.page-header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    padding-bottom: 5px;
+    font-family: 'EB Garamond', serif;
+}
+
+.user-greeting {
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+    font-family: 'EB Garamond', serif;
+}
+
+.menu-item a {
+    display: flex;
+    align-items: center;
+    color: inherit;
+    text-decoration: none;
+    width: 100%;
+    font-family: 'EB Garamond', serif;
+}
