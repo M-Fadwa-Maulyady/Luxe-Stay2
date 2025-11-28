@@ -18,6 +18,11 @@ class Booking extends Model
         'status',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'email', 'email');
+    }   
+    
     public function penginapan()
     {
         return $this->belongsTo(Penginapan::class);

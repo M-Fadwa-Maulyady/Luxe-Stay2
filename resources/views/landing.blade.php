@@ -61,7 +61,7 @@
             <li><a class="border-b-2 border-white pb-1 font-semibold" href="#">Home</a></li>
             <li><a class="hover:text-luxe-accent transition" href="#stay">Stay</a></li>
             <li><a class="hover:text-luxe-accent transition" href="#promo">Promo</a></li>
-            <li><a class="hover:text-luxe-accent transition" href="#contact">Contact us</a></li>
+            <li><a class="hover:text-luxe-accent transition" href="{{ route('contact.index') }}">Contact us</a></li>
         </ul>
 
         <!-- USER DROPDOWN -->
@@ -73,7 +73,7 @@
     <div id="userMenu"
         class="hidden absolute right-0 mt-3 bg-white text-black py-2 w-40 rounded-lg shadow-lg border">
         <a href="/profile" class="block px-4 py-2 hover:bg-gray-100 text-sm">Profil</a>
-        <a href="/history" class="block px-4 py-2 hover:bg-gray-100 text-sm">History</a>
+        <a href="{{ route('user.history') }}">History</a>
         <a href="/logout" class="block px-4 py-2 hover:bg-red-100 text-sm text-red-600">Logout</a>
     </div>
 </div>
