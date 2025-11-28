@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Penginapan;
 use App\Models\Kategori;
 use App\Models\Fasilitas;
+use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -51,6 +52,7 @@ class PenginapanController extends Controller
             'nama_penginapan' => $request->nama_penginapan,
             'kategori_id'     => $request->kategori_id,
             'detail'          => $request->detail,
+            'harga'           => $request->harga,      // <---- TAMBAH INI
             'gambar'          => $gambar,
             'gallery'         => $gallery,
             'alamat'          => $request->alamat,
@@ -109,6 +111,7 @@ class PenginapanController extends Controller
             'nama_penginapan' => $request->nama_penginapan,
             'kategori_id'     => $request->kategori_id,
             'detail'          => $request->detail,
+            'harga'           => $request->harga,        // <---- TAMBAH INI
             'gambar'          => $gambar,
             'gallery'         => $gallery,
             'alamat'          => $request->alamat,
@@ -116,6 +119,7 @@ class PenginapanController extends Controller
             'longitude'       => $request->longitude,
             'is_promo'        => $request->has('is_promo'),
         ]);
+
 
         // Update fasilitas pivot
         $penginapan->fasilitas()->sync($request->fasilitas);
@@ -183,5 +187,39 @@ class PenginapanController extends Controller
         $p = Penginapan::with(['kategori', 'fasilitas'])->findOrFail($id);
         return view('stay.detail', compact('p'));
     }
+    
+    public function checkout($id)
+    {
+        $p = Penginapan::findOrFail($id);
+        return view('stay.checkout', compact('p'));
+    }
+
+    public function checkoutStore(Request $request, $id)
+{
+    $request->validate([
+        'nama' => 'required',
+        'email' => 'required|email',
+        'telepon' => 'required',
+        'checkin_date' => 'required|date',
+        'checkout_date' => 'required|date|after:checkin_date',
+        'total_night' => 'required|numeric|min:1',
+        'total_price' => 'required|numeric|min:0',
+    ]);
+
+    Booking::create([
+        'penginapan_id' => $id,
+        'nama' => $request->nama,
+        'email' => $request->email,
+        'telepon' => $request->telepon,
+        'checkin_date' => $request->checkin_date,
+        'checkout_date' => $request->checkout_date,
+        'total_night' => $request->total_night,
+        'total_price' => $request->total_price
+    ]);
+
+    return redirect()->route('landing')
+        ->with('success', 'Booking berhasil! Kami akan menghubungi Anda.');
+}
+
 
 }

@@ -15,6 +15,7 @@ class Penginapan extends Model
         'nama_penginapan',
         'kategori_id',
         'detail',
+        'harga',  
         'alamat',
         'latitude',
         'longitude',
