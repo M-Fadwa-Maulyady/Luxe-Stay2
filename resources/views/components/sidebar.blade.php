@@ -45,6 +45,14 @@
                 </a>
             </li>
 
+            <!-- Booking (BARU) -->
+            <li class="menu-item {{ request()->is('admin/booking') ? 'active' : '' }}">
+                <a href="{{ route('admin.booking.index') }}">
+                    <i class="fa fa-calendar-check"></i>
+                    <span>Booking</span>
+                </a>
+            </li>
+
         </ul>
 
         <form action="{{ route('logout') }}" method="POST" style="margin-top: 20px;">

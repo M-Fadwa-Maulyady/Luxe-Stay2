@@ -6,6 +6,7 @@ use App\Http\Controllers\FasilitasController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PenginapanController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\BookingController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -29,14 +30,25 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 |--------------------------------------------------------------------------
 */
 Route::get('/', [PenginapanController::class, 'landing'])->name('landing');
+
 Route::get('/stay/{kategori}', [PenginapanController::class, 'stayByCategory'])
         ->name('stay.list');
 
 Route::get('/stay/detail/{id}', [PenginapanController::class, 'detail'])
         ->name('stay.detail');
 
+Route::get('/stay/checkout/{id}', [PenginapanController::class, 'checkout'])
+        ->name('stay.checkout');
+
+Route::post('/stay/checkout/{id}', [PenginapanController::class, 'checkoutStore'])
+        ->name('stay.checkout.store');   // <-- ROUTE CHECKOUT POST BARU
 
 
+/*
+|--------------------------------------------------------------------------
+| STATIC VIEW PAGES (optional)
+|--------------------------------------------------------------------------
+*/
 Route::view('/welcome', 'welcome');
 Route::view('/hotel', 'detail.hotel');
 Route::view('/villa', 'detail.villa');
@@ -54,7 +66,7 @@ Route::get('/profile', fn() => view('profile'))->name('profile');
 
 /*
 |--------------------------------------------------------------------------
-| USER ROUTES (ROLE: user)
+| USER ROUTES
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'role:user'])->group(function () {
@@ -64,7 +76,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| ADMIN ROUTES (ROLE: admin)
+| ADMIN ROUTES
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'role:admin'])
@@ -80,7 +92,6 @@ Route::middleware(['auth', 'role:admin'])
         Route::get('/dashboard', fn() =>
             view('admin.dashboard.index', ['title' => 'Dashboard'])
         )->name('dashboard');
-
 
         /*
         |--------------------------------------------------------------------------
@@ -127,12 +138,26 @@ Route::middleware(['auth', 'role:admin'])
         |--------------------------------------------------------------------------
         */
         Route::get('/rating', [RatingController::class, 'index'])->name('rating.index');
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | BOOKING LIST (ADMIN)
+        |--------------------------------------------------------------------------
+        */
+        Route::get('/booking', [BookingController::class, 'index'])
+            ->name('booking.index');   // <-- ROUTE BARU UNTUK ADMIN
+
+        Route::post('/booking/status/{id}', [BookingController::class, 'updateStatus'])
+            ->name('booking.status');
+
     });
+
 
 
 /*
 |--------------------------------------------------------------------------
-| CONTACT FORM (PUBLIC)
+| CONTACT FORM
 |--------------------------------------------------------------------------
 */
 Route::get('/contact', [ContactController::class, 'index']);

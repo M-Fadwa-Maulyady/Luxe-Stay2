@@ -96,6 +96,7 @@
                 <th>Kategori</th>
                 <th>Fasilitas</th>
                 <th>Promo</th>
+                <th>Harga</th>
                 <th>Detail</th>
                 <th>Aksi</th>
             </tr>
@@ -124,6 +125,15 @@
                         -
                     @endif
                 </td>
+
+                <td>
+                    @if($p->harga)
+                        Rp {{ number_format($p->harga,0,',','.') }}
+                    @else
+                        -
+                    @endif
+                </td>
+
 
                 <td>{{ Str::limit($p->detail, 80) }}</td>
 

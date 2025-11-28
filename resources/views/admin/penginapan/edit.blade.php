@@ -121,6 +121,9 @@
 
     <label>Longitude</label>
     <input type="text" name="longitude" class="form-control" value="{{ $penginapan->longitude }}">
+    
+    <label>Harga per Malam</label>
+    <input type="number" name="harga" class="form-control" value="{{ $penginapan->harga }}" required>
 
     <label>Detail</label>
     <textarea name="detail" class="form-control" rows="4">{{ $penginapan->detail }}</textarea>

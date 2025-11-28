@@ -18,10 +18,17 @@
     <section class="max-w-6xl mx-auto px-6 pb-14">
 
         <!-- TITLE -->
-        <h1 class="text-4xl font-bold text-blue-900 mb-2">{{ $p->nama_penginapan }}</h1>
+        <h1 class="text-4xl font-bold text-blue-900 mb-1">{{ $p->nama_penginapan }}</h1>
 
-        <!-- STAR RATING (optional placeholder) -->
-        <div class="flex text-yellow-500 mb-6">
+        <!-- PRICE (if available) -->
+        @if($p->harga ?? false)
+        <p class="text-lg font-semibold text-yellow-700 mb-4">
+            Rp {{ number_format($p->harga, 0, ',', '.') }} / malam
+        </p>
+        @endif
+
+        <!-- STAR RATING -->
+        <div class="flex text-yellow-500 mb-6 text-xl">
             ★★★★★
         </div>
 
@@ -31,7 +38,7 @@
             <!-- MAIN IMAGE -->
             <div class="w-1/2">
                 <img src="{{ asset('storage/' . $p->gambar) }}"
-                     class="rounded-lg w-full h-[330px] object-cover shadow">
+                     class="rounded-xl w-full h-[330px] object-cover shadow">
             </div>
 
             <!-- GALLERY LIST -->
@@ -39,10 +46,10 @@
                 @if($p->gallery)
                     @foreach ($p->gallery as $img)
                         <img src="{{ asset('storage/' . $img) }}"
-                             class="rounded-lg h-[155px] object-cover shadow">
+                             class="rounded-xl h-[155px] object-cover shadow">
                     @endforeach
                 @else
-                    <div class="text-gray-500">No gallery available.</div>
+                    <p class="text-gray-500 text-sm">Gallery belum tersedia.</p>
                 @endif
             </div>
 
@@ -50,7 +57,7 @@
 
 
         <!-- TABS -->
-        <div class="mt-10 border-b border-gray-400 pb-2 flex gap-10 text-lg font-semibold text-gray-700">
+        <div class="mt-10 border-b border-gray-300 pb-2 flex gap-10 text-lg font-semibold text-gray-700">
             <button onclick="showTab('facilities')" id="btnFacilities" class="tab-active">Facilities</button>
             <button onclick="showTab('highlights')" id="btnHighlights">Highlights</button>
             <button onclick="showTab('about')" id="btnAbout">About Us</button>
@@ -58,13 +65,13 @@
         </div>
 
 
-        <!-- CONTENT WRAPPER -->
+        <!-- CONTENT -->
         <div class="mt-6 flex gap-6">
 
             <!-- LEFT CONTENT -->
             <div class="w-2/3">
 
-                <!-- FACILITIES TAB -->
+                <!-- FACILITIES -->
                 <div id="tabFacilities" class="tab-content">
                     <h3 class="text-xl font-bold mb-3">Facilities</h3>
 
@@ -75,34 +82,36 @@
                     </div>
                 </div>
 
-                <!-- HIGHLIGHTS TAB -->
+                <!-- HIGHLIGHTS -->
                 <div id="tabHighlights" class="tab-content hidden">
                     <h3 class="text-xl font-bold mb-3">Highlights</h3>
                     <p class="text-gray-700 leading-relaxed">
-                        {{ $p->highlight ?? 'Tidak ada highlight.' }}
+                        {{ $p->highlight ?? 'Belum ada highlight.' }}
                     </p>
                 </div>
 
-                <!-- ABOUT TAB -->
+                <!-- ABOUT -->
                 <div id="tabAbout" class="tab-content hidden">
-                    <h3 class="text-xl font-bold mb-3">About Us</h3>
-                    <p class="text-gray-700 leading-relaxed">{{ $p->detail }}</p>
+                    <h3 class="text-xl font-bold mb-3">About</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        {{ $p->detail }}
+                    </p>
                 </div>
 
             </div>
 
-            <!-- RIGHT CONTENT – MAP -->
+
+            <!-- RIGHT CONTENT (MAP) -->
             <div class="w-1/3">
 
                 <h3 class="text-xl font-bold mb-3">Location</h3>
 
                 <div id="tabLocation" class="tab-content">
-
                     @if($p->latitude && $p->longitude)
                         <iframe
                             width="100%"
                             height="280"
-                            class="rounded-lg shadow"
+                            class="rounded-xl shadow"
                             frameborder="0"
                             src="https://www.google.com/maps?q={{ $p->latitude }},{{ $p->longitude }}&hl=id&z=15&output=embed">
                         </iframe>
@@ -113,41 +122,43 @@
                     @else
                         <p class="text-gray-500 text-sm">Lokasi belum ditambahkan.</p>
                     @endif
-
                 </div>
 
             </div>
         </div>
 
-        <!-- BOOK NOW BUTTON -->
+        <!-- BOOK NOW -->
         <div class="mt-10 text-right">
-            <button class="bg-[#D8C07A] px-6 py-3 text-white mt-4 font-bold rounded-xl shadow">
-                BOOK NOW
-            </button>
+            <a href="{{ route('stay.checkout', $p->id) }}">
+                <button class="bg-[#D8C07A] px-7 py-3 text-white font-bold text-lg rounded-xl shadow">
+                    BOOK NOW
+                </button>
+            </a>
         </div>
 
     </section>
 
 
-    <!-- TAB SCRIPT -->
+
+    <!-- SCRIPT FOR TABS -->
     <script>
         function showTab(tab) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.getElementById('tab' + capitalize(tab)).classList.remove('hidden');
 
-            document.querySelectorAll('button[id^="btn"]').forEach(btn => {
-                btn.classList.remove('tab-active');
-            });
+            document.querySelectorAll('button[id^="btn"]').forEach(btn =>
+                btn.classList.remove('tab-active')
+            );
 
             document.getElementById('btn' + capitalize(tab)).classList.add('tab-active');
         }
 
-        function capitalize(str) {
-            return str.charAt(0).toUpperCase() + str.slice(1);
+        function capitalize(s) {
+            return s.charAt(0).toUpperCase() + s.slice(1);
         }
     </script>
 
-    <!-- ACTIVE TAB STYLE -->
+    <!-- TAB CSS -->
     <style>
         .tab-active {
             border-bottom: 3px solid #D8C07A;

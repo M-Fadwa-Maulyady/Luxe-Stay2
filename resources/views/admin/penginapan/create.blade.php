@@ -107,6 +107,10 @@
         <label>Longitude</label>
         <input type="text" name="longitude" class="form-control">
 
+        <label>Harga per Malam</label>
+        <input type="number" name="harga" class="form-control" placeholder="contoh: 350000" required>
+
+
         <label>Detail</label>
         <textarea name="detail" rows="4" class="form-control"></textarea>
 

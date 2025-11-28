@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nama_penginapan');
             $table->foreignId('kategori_id')->constrained('kategoris')->onDelete('cascade');
             $table->text('detail')->nullable();
+            $table->integer('harga')->nullable();
             $table->string('alamat')->nullable();              // lokasi teks
             $table->decimal('latitude', 10, 7)->nullable();    // titik lokasi
             $table->decimal('longitude', 10, 7)->nullable();
