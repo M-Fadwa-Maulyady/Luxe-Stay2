@@ -29,8 +29,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 |--------------------------------------------------------------------------
 */
 Route::get('/', [PenginapanController::class, 'landing'])->name('landing');
-Route::get('/stay/{kategori}', [PenginapanController::class, 'stayByCategory'])->name('stay.list');
+Route::get('/stay/{kategori}', [PenginapanController::class, 'stayByCategory'])
+        ->name('stay.list');
 
+Route::get('/stay/detail/{id}', [PenginapanController::class, 'detail'])
+        ->name('stay.detail');
 
 
 

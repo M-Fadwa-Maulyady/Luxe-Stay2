@@ -47,7 +47,7 @@
                 </p>
 
                 <!-- Button -->
-                <a href="/stay/detail/{{ $p->id }}">
+                <a href="{{ route('stay.detail', $p->id) }}">
                     <button class="bg-[#D8C07A] text-white font-bold px-6 py-2 rounded-lg">
                         CHECK NOW
                     </button>
