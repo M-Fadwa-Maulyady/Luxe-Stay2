@@ -9,7 +9,6 @@ use App\Http\Controllers\RatingController;
 use App\Http\Controllers\BookingController;
 use Illuminate\Support\Facades\Route;
 
-
 /*
 |--------------------------------------------------------------------------
 | AUTH ROUTES
@@ -22,7 +21,6 @@ Route::get('/register',  [AuthController::class, 'showRegister'])->name('registe
 Route::post('/register', [AuthController::class, 'register'])->name('register.post');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
 
 /*
 |--------------------------------------------------------------------------
@@ -37,16 +35,25 @@ Route::get('/stay/{kategori}', [PenginapanController::class, 'stayByCategory'])
 Route::get('/stay/detail/{id}', [PenginapanController::class, 'detail'])
         ->name('stay.detail');
 
-Route::get('/stay/checkout/{id}', [PenginapanController::class, 'checkout'])
+/*
+|--------------------------------------------------------------------------
+| CHECKOUT WAJIB LOGIN
+|--------------------------------------------------------------------------
+*/
+Route::middleware('auth')->group(function () {
+
+    // Checkout tampilan
+    Route::get('/stay/checkout/{id}', [PenginapanController::class, 'checkout'])
         ->name('stay.checkout');
 
-Route::post('/stay/checkout/{id}', [PenginapanController::class, 'checkoutStore'])
-        ->name('stay.checkout.store');   // <-- ROUTE CHECKOUT POST BARU
-
+    // Checkout simpan booking
+    Route::post('/stay/checkout/{id}', [PenginapanController::class, 'checkoutStore'])
+        ->name('stay.checkout.store');
+});
 
 /*
 |--------------------------------------------------------------------------
-| STATIC VIEW PAGES (optional)
+| STATIC VIEW PAGES
 |--------------------------------------------------------------------------
 */
 Route::view('/welcome', 'welcome');
@@ -63,14 +70,19 @@ Route::view('/center', 'check.center');
 
 Route::get('/profile', fn() => view('profile'))->name('profile');
 
-
 /*
 |--------------------------------------------------------------------------
 | USER ROUTES
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'role:user'])->group(function () {
-    Route::get('/home', fn() => view('landing'))->name('home.user');
+    Route::get('/home', [PenginapanController::class, 'landing'])->name('home.user');
+
+    Route::get('/history', [BookingController::class, 'history'])
+        ->name('user.history');
+
+    Route::post('/history/rating/{id}', [BookingController::class, 'addRating'])
+        ->name('user.history.rating');
 });
 
 
@@ -84,20 +96,12 @@ Route::middleware(['auth', 'role:admin'])
     ->name('admin.')
     ->group(function () {
 
-        /*
-        |--------------------------------------------------------------------------
-        | DASHBOARD
-        |--------------------------------------------------------------------------
-        */
+        // Dashboard
         Route::get('/dashboard', fn() =>
             view('admin.dashboard.index', ['title' => 'Dashboard'])
         )->name('dashboard');
 
-        /*
-        |--------------------------------------------------------------------------
-        | KATEGORI CRUD
-        |--------------------------------------------------------------------------
-        */
+        // Kategori CRUD
         Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori');
         Route::get('/kategori/create', [KategoriController::class, 'create'])->name('kategori.create');
         Route::post('/kategori/store', [KategoriController::class, 'store'])->name('kategori.store');
@@ -105,12 +109,7 @@ Route::middleware(['auth', 'role:admin'])
         Route::put('/kategori/update/{id}', [KategoriController::class, 'update'])->name('kategori.update');
         Route::delete('/kategori/delete/{id}', [KategoriController::class, 'destroy'])->name('kategori.delete');
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | FASILITAS CRUD
-        |--------------------------------------------------------------------------
-        */
+        // Fasilitas CRUD
         Route::get('/fasilitas', [FasilitasController::class, 'index'])->name('fasilitas');
         Route::get('/fasilitas/create', [FasilitasController::class, 'create'])->name('fasilitas.create');
         Route::post('/fasilitas/store', [FasilitasController::class, 'store'])->name('fasilitas.store');
@@ -118,12 +117,7 @@ Route::middleware(['auth', 'role:admin'])
         Route::put('/fasilitas/update/{id}', [FasilitasController::class, 'update'])->name('fasilitas.update');
         Route::delete('/fasilitas/delete/{id}', [FasilitasController::class, 'destroy'])->name('fasilitas.delete');
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | PENGINAPAN CRUD
-        |--------------------------------------------------------------------------
-        */
+        // Penginapan CRUD
         Route::get('/penginapan', [PenginapanController::class, 'index'])->name('penginapan');
         Route::get('/penginapan/create', [PenginapanController::class, 'create'])->name('penginapan.create');
         Route::post('/penginapan/store', [PenginapanController::class, 'store'])->name('penginapan.store');
@@ -131,34 +125,18 @@ Route::middleware(['auth', 'role:admin'])
         Route::put('/penginapan/update/{id}', [PenginapanController::class, 'update'])->name('penginapan.update');
         Route::delete('/penginapan/delete/{id}', [PenginapanController::class, 'destroy'])->name('penginapan.delete');
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | RATING
-        |--------------------------------------------------------------------------
-        */
+        // Rating List
         Route::get('/rating', [RatingController::class, 'index'])->name('rating.index');
 
-
-        /*
-        |--------------------------------------------------------------------------
-        | BOOKING LIST (ADMIN)
-        |--------------------------------------------------------------------------
-        */
-        Route::get('/booking', [BookingController::class, 'index'])
-            ->name('booking.index');   // <-- ROUTE BARU UNTUK ADMIN
-
-        Route::post('/booking/status/{id}', [BookingController::class, 'updateStatus'])
-            ->name('booking.status');
-
+        // Booking Admin
+        Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
+        Route::post('/booking/status/{id}', [BookingController::class, 'updateStatus'])->name('booking.status');
     });
-
-
 
 /*
 |--------------------------------------------------------------------------
-| CONTACT FORM
+| CONTACT
 |--------------------------------------------------------------------------
 */
-Route::get('/contact', [ContactController::class, 'index']);
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');

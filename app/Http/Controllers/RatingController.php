@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Rating;
-use Illuminate\Http\Request;
+use App\Models\Booking;
 
 class RatingController extends Controller
 {
     public function index()
     {
-        $ratings = Rating::with(['user', 'penginapan'])->get();
+        // hanya rating yang sudah diisi
+        $ratings = Booking::whereNotNull('rating')
+                           ->with(['user', 'penginapan'])
+                           ->latest()
+                           ->get();
+
         return view('admin.rating.index', compact('ratings'));
     }
 }
