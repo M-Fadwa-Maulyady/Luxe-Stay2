@@ -73,44 +73,48 @@
     <form action="{{ route('admin.penginapan.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
-        <!-- Gambar -->
-        <label>Gambar</label>
+        <label>Gambar Utama</label>
         <input type="file" name="gambar" class="form-control">
-        <p class="note">Format: JPG, JPEG, PNG — Maksimal 2MB</p>
 
-        <!-- Nama -->
+        <label>Gallery (opsional)</label>
+        <input type="file" name="gallery[]" class="form-control" multiple>
+
         <label>Nama Penginapan</label>
         <input type="text" name="nama_penginapan" class="form-control" required>
 
-        <!-- Kategori -->
         <label>Kategori</label>
-        <select name="kategori_id" class="form-control" required>
-            <option value="">-- Pilih Kategori --</option>
+        <select name="kategori_id" class="form-control">
+            <option value="">-- pilih --</option>
             @foreach ($kategori as $k)
                 <option value="{{ $k->id }}">{{ $k->nama_kategori }}</option>
             @endforeach
         </select>
 
-        <!-- Fasilitas -->
         <label>Fasilitas</label>
         @foreach ($fasilitas as $f)
-            <div class="checkbox-item">
+            <div>
                 <input type="checkbox" name="fasilitas[]" value="{{ $f->id }}">
                 {{ $f->nama_fasilitas }}
             </div>
         @endforeach
 
-        <!-- Detail -->
-        <label>Detail</label>
-        <textarea name="detail" class="form-control" rows="4"></textarea>
+        <label>Alamat</label>
+        <input type="text" name="alamat" class="form-control">
 
-        <!-- Promo -->
-        <label class="block mt-3">
-            <input type="checkbox" name="is_promo" value="1">
-            Tandai sebagai promo
+        <label>Latitude</label>
+        <input type="text" name="latitude" class="form-control">
+
+        <label>Longitude</label>
+        <input type="text" name="longitude" class="form-control">
+
+        <label>Detail</label>
+        <textarea name="detail" rows="4" class="form-control"></textarea>
+
+        <label>
+            <input type="checkbox" name="is_promo" value="1"> Tandai sebagai promo
         </label>
 
-        <!-- Tombol -->
+        <br><br>
         <button class="btn-save">Simpan</button>
         <a href="{{ route('admin.penginapan') }}" class="btn-back">Batal</a>
 

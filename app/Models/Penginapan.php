@@ -11,10 +11,19 @@ class Penginapan extends Model
 
     protected $fillable = [
         'gambar',
+        'gallery',
         'nama_penginapan',
         'kategori_id',
         'detail',
+        'alamat',
+        'latitude',
+        'longitude',
         'is_promo',
+    ];
+
+    protected $casts = [
+        'gallery' => 'array',
+        'is_promo' => 'boolean',
     ];
 
     // Relasi ke kategori (1 penginapan punya 1 kategori)

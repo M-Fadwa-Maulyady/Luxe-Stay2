@@ -83,22 +83,18 @@
     @csrf
     @method('PUT')
 
-    <!-- Gambar -->
-    <label>Gambar</label>
+    <label>Gambar Utama</label>
     <input type="file" name="gambar" class="form-control">
-    <p class="note">Format: JPG, JPEG, PNG — Maksimal 2MB</p>
+    <img src="{{ asset('storage/'.$penginapan->gambar) }}" class="img-preview">
 
-    @if ($penginapan->gambar)
-        <img src="{{ asset('storage/' . $penginapan->gambar) }}" class="img-preview">
-    @endif
+    <label>Gallery (Tambah Foto)</label>
+    <input type="file" name="gallery[]" class="form-control" multiple>
 
-    <!-- Nama -->
     <label>Nama Penginapan</label>
-    <input type="text" name="nama_penginapan" value="{{ $penginapan->nama_penginapan }}" class="form-control" required>
+    <input type="text" name="nama_penginapan" value="{{ $penginapan->nama_penginapan }}" class="form-control">
 
-    <!-- Kategori -->
     <label>Kategori</label>
-    <select name="kategori_id" class="form-control" required>
+    <select name="kategori_id" class="form-control">
         @foreach ($kategori as $k)
             <option value="{{ $k->id }}" {{ $penginapan->kategori_id == $k->id ? 'selected' : '' }}>
                 {{ $k->nama_kategori }}
@@ -106,10 +102,9 @@
         @endforeach
     </select>
 
-    <!-- Fasilitas -->
     <label>Fasilitas</label>
     @foreach ($fasilitas as $f)
-        <div class="checkbox-item">
+        <div>
             <input type="checkbox"
                    name="fasilitas[]"
                    value="{{ $f->id }}"
@@ -118,22 +113,24 @@
         </div>
     @endforeach
 
-    <!-- Detail -->
+    <label>Alamat</label>
+    <input type="text" name="alamat" class="form-control" value="{{ $penginapan->alamat }}">
+
+    <label>Latitude</label>
+    <input type="text" name="latitude" class="form-control" value="{{ $penginapan->latitude }}">
+
+    <label>Longitude</label>
+    <input type="text" name="longitude" class="form-control" value="{{ $penginapan->longitude }}">
+
     <label>Detail</label>
     <textarea name="detail" class="form-control" rows="4">{{ $penginapan->detail }}</textarea>
 
-    <!-- Promo -->
-    <label class="block mt-3">
-    <input
-        type="checkbox"
-        name="is_promo"
-        value="1"
-        {{ $penginapan->is_promo ? 'checked' : '' }}
-    >
-    Tandai sebagai promo
+    <label>
+        <input type="checkbox" name="is_promo" value="1" {{ $penginapan->is_promo ? 'checked' : '' }}>
+        Tandai sebagai promo
     </label>
 
-    <!-- Tombol -->
+    <br><br>
     <button class="btn-update">Update</button>
     <a href="{{ route('admin.penginapan') }}" class="btn-back">Batal</a>
 
