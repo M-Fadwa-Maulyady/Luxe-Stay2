@@ -81,7 +81,8 @@
 
     <!-- HERO SECTION -->
     <section class="relative h-[90vh] bg-cover bg-center animate-zoomIn"
-        style="background-image: url('{{ asset('storage/hero.png') }}');">
+        style="background-image: url('{{asset('image/background-image.png')}}');">
+
         <div class="absolute inset-0 bg-black/50"></div>
 
         <div class="relative z-10 flex flex-col justify-center h-full pl-16 text-white animate-fadeUp delay-200">
@@ -104,21 +105,21 @@
         <div class="flex justify-center flex-wrap gap-8 px-6">
 
             <a href="{{ $hotel ? url('/stay/'.$hotel->id) : '#' }}" class="cardStay">
-    <img 
+    <img
         src="{{ $hotelImg ? asset('storage/'.$hotelImg->gambar) : 'https://via.placeholder.com/300' }}"
         class="rounded-lg mb-3 h-40 w-full object-cover">
     <h3 class="text-xl font-semibold font-montserrat">Hotel</h3>
 </a>
 
 <a href="{{ $villa ? url('/stay/'.$villa->id) : '#' }}" class="cardStay">
-    <img 
+    <img
         src="{{ $villaImg ? asset('storage/'.$villaImg->gambar) : 'https://via.placeholder.com/300' }}"
         class="rounded-lg mb-3 h-40 w-full object-cover">
     <h3 class="text-xl font-semibold font-montserrat">Villa</h3>
 </a>
 
 <a href="{{ $apartemen ? url('/stay/'.$apartemen->id) : '#' }}" class="cardStay">
-    <img 
+    <img
         src="{{ $aptImg ? asset('storage/'.$aptImg->gambar) : 'https://via.placeholder.com/300' }}"
         class="rounded-lg mb-3 h-40 w-full object-cover">
     <h3 class="text-xl font-semibold font-montserrat">Apartemen</h3>
@@ -292,7 +293,7 @@
         }
     });
 
-    
+
 </script>
 </body>
 </html>
