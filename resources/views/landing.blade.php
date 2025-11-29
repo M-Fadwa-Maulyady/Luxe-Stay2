@@ -137,33 +137,36 @@
 
     <div class="flex justify-center flex-wrap gap-6 px-6">
 
-        @if ($promo)
+        @if ($promo->count() > 0)
+    @foreach ($promo as $p)
         <div class="promoCard">
             <div class="h-60 overflow-hidden">
-                <img src="{{ asset('storage/'.$promo->gambar) }}"
+                <img src="{{ asset('storage/'.$p->gambar) }}"
                      class="w-full h-full object-cover transition hover:scale-110 duration-500">
             </div>
 
             <div class="p-4 text-white">
                 <h3 class="text-2xl font-bold mb-1 font-montserrat">
-                    PROMO: {{ $promo->nama_penginapan }}
+                    PROMO: {{ $p->nama_penginapan }}
                 </h3>
 
                 <p class="text-sm text-luxe-accent mb-3">
-                    {{ $promo->promo_text ?? 'Promo spesial untuk Anda!' }}
+                    {{ $p->promo_text ?? 'Promo spesial untuk Anda!' }}
                 </p>
 
-                <a href="{{ url('/stay/'.$promo->kategori_id) }}"
-                    class="inline-block bg-luxe-accent text-luxe-dark px-4 py-2 rounded-lg font-semibold hover:scale-105 transition">
+                <a href="{{ url('/stay/detail/'.$p->id) }}"
+                   class="inline-block bg-luxe-accent text-luxe-dark px-4 py-2 rounded-lg font-semibold hover:scale-105 transition">
                     Lihat Detail
                 </a>
             </div>
         </div>
-        @else
-            <p class="text-gray-600 text-center w-full">
-                Belum ada promo tersedia saat ini.
-            </p>
-        @endif
+    @endforeach
+@else
+    <p class="text-gray-600 text-center w-full">
+        Belum ada promo tersedia saat ini.
+    </p>
+@endif
+
 
     </div>
 </section>

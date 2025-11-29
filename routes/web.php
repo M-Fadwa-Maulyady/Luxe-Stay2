@@ -37,6 +37,9 @@ Route::get('/stay/{kategori}', [PenginapanController::class, 'stayByCategory'])
 Route::get('/stay/detail/{id}', [PenginapanController::class, 'detail'])
         ->name('stay.detail');
 
+Route::get('/stay/{id}', [PenginapanController::class, 'detail']);
+ 
+
 /*
 |--------------------------------------------------------------------------
 | CHECKOUT WAJIB LOGIN

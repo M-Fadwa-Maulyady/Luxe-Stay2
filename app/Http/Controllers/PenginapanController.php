@@ -166,7 +166,7 @@ class PenginapanController extends Controller
         $villaImg = $villa ? Penginapan::where('kategori_id', $villa->id)->first() : null;
         $aptImg   = $apartemen ? Penginapan::where('kategori_id', $apartemen->id)->first() : null;
 
-        $promo = Penginapan::where('is_promo', true)->first();
+        $promo = Penginapan::where('is_promo', true)->get();
 
         return view('landing', compact(
             'hotel','villa','apartemen','hotelImg','villaImg','aptImg','promo'
