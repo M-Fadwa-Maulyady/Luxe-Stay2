@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <h5 class="fw-bold">Jumlah Hotel</h5>
+                                <h5 class="fw-bold">Jumlah Penginapan</h5>
                                 <h3>{{ $jumlahHotel ?? 0 }}</h3>
                                 <small>Semua Penginapan</small>
                             </div>
