@@ -7,6 +7,8 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PenginapanController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,6 +51,11 @@ Route::middleware('auth')->group(function () {
     // Checkout simpan booking
     Route::post('/stay/checkout/{id}', [PenginapanController::class, 'checkoutStore'])
         ->name('stay.checkout.store');
+
+
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
 });
 
 /*
@@ -68,7 +75,6 @@ Route::view('/tropis', 'check.tropis');
 Route::view('/syariah', 'check.syariah');
 Route::view('/center', 'check.center');
 
-Route::get('/profile', fn() => view('profile'))->name('profile');
 
 /*
 |--------------------------------------------------------------------------
@@ -97,9 +103,8 @@ Route::middleware(['auth', 'role:admin'])
     ->group(function () {
 
         // Dashboard
-        Route::get('/dashboard', fn() =>
-            view('admin.dashboard.index', ['title' => 'Dashboard'])
-        )->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard');
 
         // Kategori CRUD
         Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori');

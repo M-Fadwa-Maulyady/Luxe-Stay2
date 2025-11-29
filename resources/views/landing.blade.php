@@ -73,8 +73,8 @@
     <div id="userMenu"
         class="hidden absolute right-0 mt-3 bg-white text-black py-2 w-40 rounded-lg shadow-lg border">
         <a href="/profile" class="block px-4 py-2 hover:bg-gray-100 text-sm">Profil</a>
-        <a href="{{ route('user.history') }}">History</a>
-        <a href="/logout" class="block px-4 py-2 hover:bg-red-100 text-sm text-red-600">Logout</a>
+        <a href="{{ route('user.history') }}" class="block px-4 py-2 hover:bg-gray-100 text-sm">History</a>
+        <a href="/login" class="block px-4 py-2 hover:bg-red-100 text-sm text-red-600">Login</a>
     </div>
 </div>
     </nav>
@@ -82,6 +82,7 @@
     <!-- HERO SECTION -->
     <section class="relative h-[90vh] bg-cover bg-center animate-zoomIn"
         style="background-image: url('{{asset('image/background-image.png')}}');">
+
         <div class="absolute inset-0 bg-black/50"></div>
 
         <div class="relative z-10 flex flex-col justify-center h-full pl-16 text-white animate-fadeUp delay-200">
@@ -169,11 +170,68 @@
 
 
     <!-- FOOTER -->
-    <footer id="contact" class="bg-luxe-dark text-white py-10 text-center animate-fadeIn delay-500">
-        <p class="text-lg font-medium mb-3 font-montserrat">Hubungi Kami</p>
-        <p>Email: farn@luxestay.com | Telp: +62 821 7979 3306</p>
-        <p class="mt-4 text-sm text-gray-400">© 2025 Luxe Stay. All rights reserved.</p>
-    </footer>
+    <!-- FOOTER BARU -->
+<footer class="bg-[#0d1b2a] text-white pt-14 pb-10 relative">
+
+    <!-- Segitiga kecil di atas -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-0 h-0 
+        border-l-[25px] border-l-transparent 
+        border-r-[25px] border-r-transparent 
+        border-b-[25px] border-b-[#0d1b2a]">
+    </div>
+
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
+
+        <!-- LOGO & CONTACT -->
+        <div>
+            <h2 class="font-playfair text-2xl font-bold tracking-wider">LUXE</h2>
+            <p class="tracking-[0.4em] text-sm opacity-70 mb-4">S T A Y</p>
+
+            <p class="text-sm opacity-80 leading-relaxed">
+                Tel: +62 821 7979 3306<br>
+                luxury.luxestay@gmail.com
+            </p>
+        </div>
+
+        <!-- MENU -->
+        <div class="space-y-2">
+            <p class="font-semibold mb-2">About Us</p>
+            <p class="font-semibold mb-2">Contact</p>
+            <p class="font-semibold mb-2">Terms & Conditions</p>
+        </div>
+
+        <!-- SOCIAL -->
+        <div class="space-y-3">
+            <p class="font-semibold mb-2">Social Media</p>
+            <div class="flex items-center gap-3">
+                <i class="fa-brands fa-facebook"></i> Facebook
+            </div>
+            <div class="flex items-center gap-3">
+                <i class="fa-brands fa-twitter"></i> Twitter
+            </div>
+            <div class="flex items-center gap-3">
+                <i class="fa-brands fa-instagram"></i> Instagram
+            </div>
+        </div>
+
+        <!-- NEWSLETTER -->
+        <div>
+            <p class="font-semibold mb-3">Subscribe to our newsletter</p>
+            <div class="flex">
+                <input 
+                    type="email" 
+                    placeholder="Email Address"
+                    class="w-full px-3 py-2 rounded-l-md text-black text-sm outline-none"
+                >
+                <button class="bg-[#f4b41a] px-5 py-2 rounded-r-md text-black font-semibold text-sm">
+                    OK
+                </button>
+            </div>
+        </div>
+
+    </div>
+</footer>
+
 
     <!-- ANIMATIONS + CARD STYLE -->
     <style>
